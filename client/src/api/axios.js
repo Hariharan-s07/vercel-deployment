@@ -22,7 +22,7 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 403 && error.response.data.message === 'Forbidden' && !originalRequest._retry) {
+        if (error.response && error.response.status === 403 && error.response.data.message === 'Forbidden' && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
                 const { data } = await api.get('/auth/refresh');
