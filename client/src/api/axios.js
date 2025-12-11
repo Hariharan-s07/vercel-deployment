@@ -9,9 +9,25 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user && user.token) {
-            config.headers['Authorization'] = `Bearer ${user.token}`;
+        try {
+            const userStr = localStorage.getItem('user');
+            console.log('User from localStorage:', userStr);
+
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                console.log('Parsed user:', user);
+
+                if (user && user.token) {
+                    config.headers['Authorization'] = `Bearer ${user.token}`;
+                    console.log('Token attached to request');
+                } else {
+                    console.warn('User object exists but no token found');
+                }
+            } else {
+                console.warn('No user in localStorage');
+            }
+        } catch (error) {
+            console.error('Error reading user from localStorage:', error);
         }
         return config;
     },
