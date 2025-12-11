@@ -42,8 +42,8 @@ const registerUser = async (req, res, next) => { // Added next for error handlin
             // Send Refresh Token in Cookie
             res.cookie('jwt', refreshToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
-                sameSite: 'strict',
+                secure: true, // Required for SameSite: 'None'
+                sameSite: 'none', // Allow cross-site cookie
                 maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
             });
 
@@ -87,8 +87,8 @@ const loginUser = async (req, res, next) => {
 
             res.cookie('jwt', refreshToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV !== 'development',
-                sameSite: 'strict',
+                secure: true,
+                sameSite: 'none',
                 maxAge: 7 * 24 * 60 * 60 * 1000
             });
 
