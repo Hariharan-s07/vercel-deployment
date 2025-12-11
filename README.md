@@ -1,6 +1,6 @@
 # MERN Task Management System
 
-A production-grade Task Management Application built with the MERN stack (MongoDB, Express, React, Node.js).
+A production-grade Task Management Application built with the MERN stack (MongoDB, Express, React, Node.js). 🚀 Deployed & Live!
 
 ## Features
 
