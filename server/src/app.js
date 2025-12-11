@@ -8,27 +8,11 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(cors({
-    origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-
-        // Define allowed origins
-        const allowedOrigins = [
-            'http://localhost:5173',
-            'http://localhost:5000'
-        ];
-
-        // Allow Vercel deployments
-        if (origin.endsWith('.vercel.app') || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            // For now, to prevent blocking valid deployments during testing, 
-            // you might want to log this or be more permissive if needed.
-            // But strict CORS is better.
-            console.log('Blocked by CORS:', origin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: [
+        'http://localhost:5173',
+        'http://localhost:5000',
+        /^https:\/\/.*\.vercel\.app$/
+    ],
     credentials: true
 }));
 app.use(express.json());
