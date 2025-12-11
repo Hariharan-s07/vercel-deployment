@@ -8,13 +8,10 @@ const app = express();
 // Middleware
 app.use(helmet());
 app.use(cors({
-    origin: (origin, callback) => {
-        // Allow ALL origins by simply returning the origin request came from
-        callback(null, origin || true);
-    },
+    origin: true,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
 app.use(cookieParser());
